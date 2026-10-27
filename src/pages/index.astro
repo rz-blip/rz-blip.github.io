@@ -2,16 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import {
   identity,
-  summary,
-  facts,
+  about,
   now,
-  experience,
-  ventures,
-  built,
+  story,
+  made,
   skills,
-  education,
   links,
-  ticker,
   meta,
 } from '../data/resume';
 
@@ -25,23 +21,14 @@ const updated = new Date().toLocaleDateString('en-US', {
 });
 
 const navItems = [
+  { label: 'About', href: '#about' },
   { label: 'Now', href: '#now' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Ventures', href: '#ventures' },
-  { label: 'Built', href: '#built' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Story', href: '#story' },
+  { label: 'Made', href: '#made' },
 ];
 
-// Color lab — curated accent palettes (defined in global.css)
-const accents = [
-  { key: 'brass', color: '#c2a05c', label: 'Brass' },
-  { key: 'fairway', color: '#55a172', label: 'Fairway' },
-  { key: 'claret', color: '#a04a56', label: 'Claret' },
-  { key: 'platinum', color: '#c3cbc2', label: 'Platinum' },
-];
-
-// warm-ivory tint for the black badge artwork
-const ivory = 'filter: invert(90%) sepia(10%)';
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+const external = (href: string) => href.startsWith('http');
 ---
 
 <Layout>
@@ -54,10 +41,10 @@ const ivory = 'filter: invert(90%) sepia(10%)';
         class="mx-auto max-w-6xl px-6 md:px-10 py-3 flex items-center justify-between"
       >
         <a href="#top" class="flex items-center gap-3 text-text">
-          <img src="/badge.svg" alt="" class="h-5 w-auto" style={ivory} />
-          <span class="label !text-text">33rd Ventures</span>
+          <img src="/badge.svg" alt="" class="ivory h-5 w-auto" />
+          <span class="label !text-text">{identity.shortName}</span>
         </a>
-        <nav class="hidden md:flex items-center gap-6 label" id="site-nav">
+        <nav class="hidden md:flex items-center gap-8 label" id="site-nav">
           {
             navItems.map((n) => (
               <a href={n.href} class="hover:text-text transition-colors">
@@ -66,155 +53,91 @@ const ivory = 'filter: invert(90%) sepia(10%)';
             ))
           }
         </nav>
-        <button
-          onclick="window.print()"
-          class="label !text-dim border rule rounded-[3px] px-4 py-1.5 hover:border-accent hover:!text-accent-hot transition-colors cursor-pointer"
-        >
-          Print / PDF
-        </button>
+        <a href="#contact" class="label !text-accent-hot hover:!text-text transition-colors">
+          Say hi
+        </a>
       </div>
     </header>
 
     <main id="top" class="relative">
-      <!-- ────────────  HERO — the crest  ──────────── -->
-      <section
-        class="relative min-h-[92svh] flex flex-col overflow-hidden border-b rule"
-      >
-        <!-- Lamplight + engraved marque backdrop -->
+      <!-- ────────────  HERO  ──────────── -->
+      <section class="relative overflow-hidden border-b rule">
         <div
           class="no-print absolute inset-0"
           style="background:
-            radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 70%);"
+            radial-gradient(ellipse 60% 60% at 18% 0%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 70%);"
         >
         </div>
         <img
           src="/badge.svg"
           alt=""
           aria-hidden="true"
-          class="no-print pointer-events-none select-none absolute -right-56 bottom-[-8rem] w-[58rem] max-w-none opacity-[0.035] rotate-[-7deg]"
-          style={ivory}
+          class="ivory no-print pointer-events-none select-none absolute -right-72 md:-right-40 top-24 w-[46rem] md:w-[58rem] max-w-none opacity-[0.04] rotate-[-7deg]"
         />
 
-        <!-- Hero content -->
-        <div
-          class="relative z-10 mx-auto max-w-6xl w-full px-6 md:px-10 flex-1 flex flex-col pt-24 pb-10"
-        >
-          <div class="flex items-center justify-between label rise delay-1">
-            <span>Curriculum vitae · living document</span>
-            <span class="hidden sm:inline lining">Updated {updated} · {meta.version}</span>
+        <div class="relative z-10 mx-auto max-w-6xl px-6 md:px-10 pt-28 md:pt-40 pb-20 md:pb-28">
+          <div class="flex items-center gap-4 rise delay-1">
+            <img src="/badge.svg" alt="33rd Ventures marque" class="ivory h-9 md:h-10 w-auto" />
+            <span class="font-display text-[13px] md:text-sm tracking-[0.32em] text-dim">
+              {identity.name}
+            </span>
           </div>
 
-          <div class="flex-1 flex flex-col items-center justify-center text-center">
-            <img
-              src="/badge.svg"
-              alt="33rd Ventures marque"
-              class="h-20 md:h-24 w-auto rise delay-1"
-              style={ivory}
-            />
+          <h1
+            class="font-serif font-medium text-[clamp(3.2rem,9vw,7rem)] leading-[1] tracking-[-0.01em] mt-10 md:mt-12 rise delay-2"
+          >
+            Hi, I’m <em class="text-accent-hot">{identity.firstName}</em>.
+          </h1>
 
-            <h1
-              class="font-display font-semibold text-[clamp(2rem,5.2vw,3.9rem)] leading-[1.18] tracking-[0.08em] mt-10 rise delay-2"
-            >
-              Robert Zukerman
-            </h1>
-
-            <div class="rule-double w-28 mt-7 rise delay-2"></div>
-
-            <p
-              class="font-serif italic text-lg md:text-xl text-dim max-w-2xl mt-7 leading-relaxed rise delay-3"
-            >
-              {identity.roleLine}
-            </p>
-
-            <div class="flex flex-wrap items-center justify-center gap-5 mt-10 rise delay-4">
-              <a
-                href="#contact"
-                class="label !text-on-accent !tracking-[0.24em] bg-accent rounded-[3px] px-8 py-3.5 hover:bg-accent-hot transition-colors"
-              >
-                Get in touch
-              </a>
-              <a
-                href="#now"
-                class="label !text-dim hover:!text-text transition-colors px-1 py-3"
-              >
-                Scroll the file ↓
-              </a>
-            </div>
-          </div>
+          <p
+            class="font-serif italic text-xl md:text-[1.75rem] leading-[1.5] text-dim max-w-3xl mt-8 md:mt-10 rise delay-3"
+          >
+            {identity.tagline}
+          </p>
         </div>
+      </section>
 
-        <!-- Ticker strip -->
-        <div
-          class="relative z-10 border-t rule bg-pine/70 backdrop-blur-sm py-3.5 overflow-hidden no-print"
-        >
-          <div class="marquee-track label !text-muted">
+      <!-- ────────────  ABOUT  ──────────── -->
+      <section id="about" class="px-6 md:px-10 py-20 md:py-28 scroll-mt-16">
+        <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-6 md:gap-16 reveal">
+          <p class="label md:col-span-4 md:pt-2.5">About</p>
+          <div class="md:col-span-8 space-y-6">
             {
-              [...Array(2)].map(() =>
-                ticker.map((t) => (
-                  <span class="inline-flex items-center">
-                    <span class="px-7">{t}</span>
-                    <span class="text-accent text-[8px]">◆</span>
-                  </span>
-                ))
-              )
+              about.map((para) => (
+                <p class="font-serif text-[clamp(1.2rem,2vw,1.5rem)] leading-[1.65] text-text">
+                  {para}
+                </p>
+              ))
             }
           </div>
         </div>
       </section>
 
-      <!-- ────────────  I / PROFILE  ──────────── -->
-      <section id="profile" class="px-6 md:px-10 py-16 md:py-24 scroll-mt-16">
-        <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-10 md:gap-16 reveal">
-          <div class="md:col-span-7">
-            <p class="label mb-6"><span class="text-accent-hot">I</span> · Profile</p>
-            <p class="font-serif text-lg md:text-[1.2rem] leading-[1.8] text-dim">
-              {summary}
-            </p>
-          </div>
-          <div class="md:col-span-5 md:pt-10">
-            <dl class="border-t rule">
-              {
-                facts.map((f) => (
-                  <div class="flex justify-between gap-6 py-3 border-b rule">
-                    <dt class="label pt-1 shrink-0">{f.label}</dt>
-                    <dd class="text-[15px] lining text-right text-text">{f.value}</dd>
-                  </div>
-                ))
-              }
-              <div class="flex justify-between gap-6 py-3 border-b rule">
-                <dt class="label pt-1 shrink-0">Contact</dt>
-                <dd class="text-[15px] text-right">
-                  <a
-                    href={`mailto:${identity.email}`}
-                    class="uline text-accent-hot"
-                  >
-                    {identity.email}
-                  </a>
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </section>
-
-      <!-- ────────────  II / NOW  ──────────── -->
-      <section id="now" class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
-        <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-8 md:gap-16 reveal">
-          <div class="md:col-span-4">
-            <p class="label"><span class="text-accent-hot">II</span> · Now</p>
-            <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
-              On the desk
+      <!-- ────────────  NOW  ──────────── -->
+      <section id="now" class="no-print px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
+        <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-8 md:gap-16">
+          <div class="md:col-span-4 reveal">
+            <p class="label">Now</p>
+            <h2 class="font-serif text-[clamp(1.8rem,2.8vw,2.3rem)] leading-tight text-balance mt-3 text-text">
+              What I’m working on
             </h2>
-            <p class="label mt-4">As of {now.asOf}</p>
+            <p class="font-serif italic text-dim mt-3">As of {now.asOf}</p>
           </div>
           <ul class="md:col-span-8 border-t rule">
             {
               now.items.map((item) => (
-                <li class="flex gap-5 py-4 border-b rule font-serif text-[16px] leading-relaxed text-dim">
-                  <span class="text-accent text-[9px] pt-2" aria-hidden="true">
-                    ◆
-                  </span>
-                  {item}
+                <li class="py-6 border-b rule reveal">
+                  <h3 class="font-serif font-semibold text-[1.35rem] text-text">{item.title}</h3>
+                  <p class="font-serif text-[17px] leading-relaxed text-dim mt-1.5">{item.text}</p>
+                  {item.href && (
+                    <a
+                      href={item.href}
+                      {...(external(item.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      class="inline-block font-serif italic text-[16px] text-accent-hot uline mt-2"
+                    >
+                      {item.linkLabel} {external(item.href) ? '↗' : '↓'}
+                    </a>
+                  )}
                 </li>
               ))
             }
@@ -222,217 +145,136 @@ const ivory = 'filter: invert(90%) sepia(10%)';
         </div>
       </section>
 
-      <!-- ────────────  III / EXPERIENCE  ──────────── -->
+      <!-- ────────────  STORY  ──────────── -->
       <section
-        id="experience"
+        id="story"
         class="relative overflow-hidden px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16"
       >
-        <!-- Engraved marque watermark -->
         <img
           src="/badge.svg"
           alt=""
           aria-hidden="true"
-          class="no-print pointer-events-none select-none absolute -right-48 top-1/2 -translate-y-1/2 w-[54rem] max-w-none opacity-[0.035] rotate-[-8deg]"
-          style={ivory}
+          class="ivory no-print pointer-events-none select-none absolute -right-48 top-1/2 -translate-y-1/2 w-[54rem] max-w-none opacity-[0.03] rotate-[-8deg]"
         />
-        <div class="relative z-10 mx-auto max-w-6xl">
-          <div class="reveal">
-            <p class="label"><span class="text-accent-hot">III</span> · Experience</p>
-            <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
-              Nine years · three companies · one exit
+        <div class="relative z-10 mx-auto max-w-6xl grid md:grid-cols-12 gap-8 md:gap-16">
+          <div class="md:col-span-4 reveal">
+            <p class="label">Story</p>
+            <h2 class="font-serif text-[clamp(1.8rem,2.8vw,2.3rem)] leading-tight text-balance mt-3 text-text">
+              What I’ve done
             </h2>
           </div>
-
-          <div class="mt-12">
+          <ol class="md:col-span-8 border-t rule">
             {
-              experience.map((job) => (
-                <article class="grid md:grid-cols-12 gap-4 md:gap-16 py-10 md:py-12 border-t rule reveal">
-                  <div class="md:col-span-4">
-                    <p class="label !text-accent-hot lining">{job.dates}</p>
-                    <h3 class="font-serif font-semibold text-2xl md:text-[1.65rem] mt-3 leading-tight text-text">
-                      {job.company}
-                      {job.alias && (
-                        <span class="text-muted font-normal"> ({job.alias})</span>
+              story.map((s) => (
+                <li class="story-row grid sm:grid-cols-[8.5rem_1fr] gap-x-8 gap-y-2 py-7 border-b rule reveal">
+                  <p class="label !text-accent-hot lining pt-1.5">{s.dates}</p>
+                  <div>
+                    <h3 class="font-serif font-semibold text-[1.35rem] leading-tight text-text">
+                      {s.href ? (
+                        <a href={s.href} target="_blank" rel="noopener noreferrer" class="uline">
+                          {s.place}
+                        </a>
+                      ) : (
+                        s.place
                       )}
+                      <span class="font-normal italic text-dim text-[17px]"> · {s.role}</span>
                     </h3>
-                    <p class="font-serif italic text-[16px] text-dim mt-1.5">
-                      {job.role}
-                    </p>
-                    <p class="label mt-3">{job.location}</p>
-                    {job.tag && (
-                      <p class="inline-block mt-4 label !text-accent-hot border border-accent/40 rounded-[3px] px-3 py-1.5 lining">
-                        {job.tag}
-                      </p>
+                    <p class="font-serif text-[17px] leading-relaxed text-dim mt-2">{s.text}</p>
+                    {s.bullets.length > 0 && (
+                      <ul class="print-only mt-2 space-y-1">
+                        {s.bullets.map((b) => (
+                          <li class="font-serif text-[13px] leading-snug">· {b}</li>
+                        ))}
+                      </ul>
                     )}
                   </div>
-                  <ul class="md:col-span-8 space-y-3.5 md:pt-1">
-                    {job.bullets.map((b) => (
-                      <li class="flex gap-4 font-serif text-[16px] leading-relaxed text-dim">
-                        <span
-                          class="text-muted text-xs pt-1 select-none"
-                          aria-hidden="true"
-                        >
-                          ·
-                        </span>
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-
-      <!-- ────────────  IV / VENTURES  ──────────── -->
-      <section
-        id="ventures"
-        class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16"
-      >
-        <div class="mx-auto max-w-6xl">
-          <div class="reveal">
-            <p class="label"><span class="text-accent-hot">IV</span> · Ventures</p>
-            <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
-              Built and owned
-            </h2>
-          </div>
-
-          <ul class="mt-10">
-            {
-              ventures.map((v, i) => (
-                <li class="border-t rule reveal">
-                  <a
-                    href={v.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="group grid md:grid-cols-12 gap-2 md:gap-8 items-baseline py-7 md:py-8 hover:bg-panel/70 transition-colors -mx-4 px-4"
-                  >
-                    <span class="md:col-span-1">
-                      <span class="inline-flex items-center justify-center min-w-9 h-6 px-2 rounded-full border border-transparent text-sm lining text-muted transition-all duration-300 group-hover:border-accent group-hover:text-accent-hot group-hover:-rotate-6">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                    </span>
-                    <h3 class="font-serif font-semibold text-xl md:text-2xl md:col-span-4 text-text group-hover:text-accent-hot transition-colors">
-                      {v.name}
-                    </h3>
-                    <p class="font-serif text-[16px] leading-relaxed text-dim md:col-span-5">
-                      {v.blurb}
-                    </p>
-                    <span class="label !text-accent-hot md:col-span-2 md:text-right lining">
-                      {v.status} ↗
-                    </span>
-                  </a>
                 </li>
               ))
             }
-          </ul>
-          <div class="border-t rule"></div>
+          </ol>
         </div>
       </section>
 
-      <!-- ────────────  V / BUILT  ──────────── -->
-      <section id="built" class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
+      <!-- ────────────  MADE  ──────────── -->
+      <section id="made" class="no-print px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
         <div class="mx-auto max-w-6xl">
           <div class="reveal">
-            <p class="label"><span class="text-accent-hot">V</span> · Built</p>
-            <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
-              The tools the work runs on
+            <p class="label">Made</p>
+            <h2 class="font-serif text-[clamp(1.8rem,2.8vw,2.3rem)] leading-tight text-balance mt-3 text-text">
+              Things I’ve made
             </h2>
+            <p class="font-serif italic text-dim mt-3 max-w-xl">
+              Side businesses, a newsletter, and a few apps I built for myself.
+            </p>
           </div>
 
-          <div class="grid md:grid-cols-3 gap-5 mt-10 reveal">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 md:mt-12">
             {
-              built.map((b) => (
-                <div class="club-panel rounded-[4px] p-7 md:p-8 flex flex-col gap-4">
-                  <p class="label !text-accent-hot">{b.context}</p>
-                  <h3 class="font-serif font-semibold text-xl leading-snug text-text">
-                    {b.name}
-                  </h3>
-                  <p class="font-serif text-[15px] leading-relaxed text-dim">
-                    {b.blurb}
-                  </p>
-                </div>
-              ))
+              made.map((m, i) => {
+                const Tag = m.href ? 'a' : 'div';
+                return (
+                  <Tag
+                    {...(m.href ? { href: m.href, target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    class:list={[
+                      'made-card club-panel rounded-[4px] p-7 flex flex-col gap-3 reveal',
+                      m.href && 'group is-link',
+                    ]}
+                  >
+                    <div class="flex items-center justify-between gap-4">
+                      <span class="font-serif italic text-accent-hot lining">{pad(i)}</span>
+                      <span class="label">{m.kind}</span>
+                    </div>
+                    <h3 class="font-serif font-semibold text-[1.35rem] leading-snug text-text mt-1 group-hover:text-accent-hot transition-colors">
+                      {m.name}
+                      {m.href && <span class="text-accent text-[15px]"> ↗</span>}
+                    </h3>
+                    <p class="font-serif text-[16px] leading-relaxed text-dim">{m.text}</p>
+                  </Tag>
+                );
+              })
             }
           </div>
         </div>
       </section>
 
-      <!-- ────────────  VI / SKILLS & VII / EDUCATION  ──────────── -->
-      <section id="skills" class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
-        <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-12 md:gap-16">
-          <div class="md:col-span-8 reveal">
-            <p class="label"><span class="text-accent-hot">VI</span> · Skills</p>
-            <div class="grid sm:grid-cols-2 gap-x-12 gap-y-10 mt-8">
-              {
-                skills.map((s) => (
-                  <div>
-                    <h3 class="label !text-text border-b rule pb-2.5">{s.group}</h3>
-                    <ul class="mt-3.5 space-y-2">
-                      {s.items.map((item) => (
-                        <li class="font-serif text-[15px] leading-relaxed text-dim">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-
-          <div class="md:col-span-4 reveal">
-            <p class="label"><span class="text-accent-hot">VII</span> · Education</p>
-            <ul class="mt-8">
-              {
-                education.map((e) => (
-                  <li class="py-4 border-b rule first:border-t">
-                    <div class="flex justify-between items-baseline gap-4">
-                      <span class="font-serif font-semibold text-lg text-text">
-                        {e.school}
-                      </span>
-                      <span class="label lining shrink-0">{e.dates}</span>
-                    </div>
-                    <p class="font-serif text-[15px] text-dim mt-1">{e.detail}</p>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
+      <!-- Printed résumé only: skills -->
+      <section class="print-only px-6">
+        <p class="label">Skills</p>
+        {
+          skills.map((s) => (
+            <p class="font-serif text-[13px] mt-1.5">
+              <strong>{s.group}:</strong> {s.items.join(' · ')}
+            </p>
+          ))
+        }
       </section>
 
-      <!-- ────────────  VIII / CONTACT  ──────────── -->
+      <!-- ────────────  CONTACT  ──────────── -->
       <section
         id="contact"
         class="px-6 md:px-10 py-20 md:py-32 border-t rule scroll-mt-16"
       >
         <div class="mx-auto max-w-6xl text-center reveal">
-          <p class="label"><span class="text-accent-hot">VIII</span> · Contact</p>
-          <h2
-            class="font-display text-[clamp(1.4rem,3.4vw,2.5rem)] leading-[1.35] mt-8 mx-auto max-w-4xl text-text"
-          >
-            Small caps, IR or building with AI?<br />Let's talk.
+          <img src="/badge.svg" alt="" class="ivory h-10 w-auto mx-auto" />
+          <h2 class="font-serif text-[clamp(2.2rem,5vw,3.6rem)] leading-tight mt-8 text-text">
+            Say <em class="text-accent-hot">hi</em>.
           </h2>
+          <p class="font-serif italic text-lg text-dim mt-4">Hit me up on any of these.</p>
           <div class="rule-double w-28 mx-auto mt-8"></div>
 
-          <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-5 mt-9">
-            <a
-              href={`mailto:${identity.email}`}
-              class="font-serif text-lg md:text-xl text-accent-hot uline"
-            >
-              {identity.email}
-            </a>
+          <div class="flex flex-wrap items-start justify-center gap-x-12 md:gap-x-16 gap-y-8 mt-10">
             {
               links.map((l) => (
                 <a
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="label !text-dim uline hover:!text-accent-hot transition-colors"
+                  class="group flex flex-col items-center gap-2"
                 >
-                  {l.label} ↗
+                  <span class="label group-hover:!text-text transition-colors">{l.label}</span>
+                  <span class="font-serif text-xl md:text-2xl text-accent-hot">
+                    <span class="uline">{l.handle}</span> ↗
+                  </span>
                 </a>
               ))
             }
@@ -447,38 +289,22 @@ const ivory = 'filter: invert(90%) sepia(10%)';
         class="mx-auto max-w-6xl px-6 md:px-10 py-10 flex flex-wrap items-center justify-between gap-6 label"
       >
         <span class="flex items-center gap-3">
-          <img src="/badge.svg" alt="" class="h-4 w-auto" style={ivory} />
-          <span class="lining">33rd Ventures · © {year}</span>
+          <img src="/badge.svg" alt="" class="ivory h-4 w-auto" />
+          <span class="lining">33rd Ventures · © {year} · New York City</span>
         </span>
-        <span class="hidden md:inline">
-          This page is the résumé, updated continuously · New York
+        <span class="no-print hidden md:inline lining">Updated {updated}</span>
+        <span class="no-print flex items-center gap-6">
+          <button id="print-btn" class="label hover:text-text transition-colors uline cursor-pointer">
+            Résumé (PDF)
+          </button>
+          <a href="#top" class="hover:text-text transition-colors uline">↑ Top</a>
         </span>
-        <a href="#top" class="no-print hover:text-text transition-colors uline">↑ Top</a>
       </div>
     </footer>
-
-    <!-- ────────────  COLOR LAB  ──────────── -->
-    <div
-      id="color-lab"
-      class="no-print fixed bottom-5 right-5 z-50 club-panel rounded-full pl-4 pr-3 py-2 flex items-center gap-2.5"
-    >
-      <span class="label !text-[9px]">Color</span>
-      {
-        accents.map((a) => (
-          <button
-            class="swatch"
-            data-accent={a.key}
-            style={`background:${a.color}`}
-            aria-label={`${a.label} accent`}
-            aria-pressed={a.key === 'brass' ? 'true' : 'false'}
-          />
-        ))
-      }
-    </div>
   </div>
 
-  <!-- Scroll-spy: highlights the nav item for the section in view -->
   <script>
+    // Scroll-spy: highlights the nav item for the section in view
     const nav = document.getElementById('site-nav');
     if (nav) {
       const navLinks = [...nav.querySelectorAll('a')];
@@ -502,31 +328,6 @@ const ivory = 'filter: invert(90%) sepia(10%)';
       sections.forEach((s) => spy.observe(s));
     }
 
-    // Color lab: set data-accent on <html>, persist to localStorage
-    const lab = document.getElementById('color-lab');
-    if (lab) {
-      const swatches = [...lab.querySelectorAll('button[data-accent]')];
-      const valid = new Set(swatches.map((b) => (b as HTMLElement).dataset.accent));
-      const apply = (key: string) => {
-        document.documentElement.dataset.accent = key;
-        swatches.forEach((b) =>
-          b.setAttribute(
-            'aria-pressed',
-            String((b as HTMLElement).dataset.accent === key)
-          )
-        );
-      };
-      const saved = document.documentElement.dataset.accent;
-      apply(saved && valid.has(saved) ? saved : 'brass');
-      swatches.forEach((b) =>
-        b.addEventListener('click', () => {
-          const key = (b as HTMLElement).dataset.accent!;
-          apply(key);
-          try {
-            localStorage.setItem('accent', key);
-          } catch {}
-        })
-      );
-    }
+    document.getElementById('print-btn')?.addEventListener('click', () => window.print());
   </script>
 </Layout>

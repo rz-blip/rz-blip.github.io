@@ -3,12 +3,10 @@
 @source "../**/*.{astro,html,js,jsx,ts,tsx,md,mdx}";
 
 /* ──────────────────────────────────────────────────────────────
-   THE LIVING RÉSUMÉ — private-club edition
-   Deep billiard-green field, ivory type, brass trim. Engraved
-   Roman capitals for display, Garamond for the text. Banker
-   pinstripes, certificate double-rules, patina grain.
-   The accent is a runtime token: the color-lab switcher sets
-   data-accent on <html> and every accent utility follows.
+   ROB'S SITE · v5, a personal page in the private-club palette
+   Deep billiard-green field, ivory type, brass trim. Garamond for
+   the voice, Cinzel engraved capitals for the name, the 33 badge
+   as the crest. Certificate double-rules, patina grain.
    ────────────────────────────────────────────────────────────── */
 
 @theme {
@@ -23,23 +21,6 @@
   --color-muted: #77816f;
   --color-accent: #c2a05c;
   --color-accent-hot: #dcc08a;
-  --color-on-accent: #0c1a14;
-}
-
-/* ── Color lab palettes — data-accent on <html> ── */
-:root[data-accent='fairway'] {
-  --color-accent: #55a172;
-  --color-accent-hot: #7dc498;
-  --color-on-accent: #0c1a14;
-}
-:root[data-accent='claret'] {
-  --color-accent: #a04a56;
-  --color-accent-hot: #c47380;
-  --color-on-accent: #ece7db;
-}
-:root[data-accent='platinum'] {
-  --color-accent: #c3cbc2;
-  --color-accent-hot: #e4e9e2;
   --color-on-accent: #0c1a14;
 }
 
@@ -204,18 +185,6 @@
   }
 }
 
-/* Ticker strip */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.marquee-track {
-  display: inline-flex;
-  white-space: nowrap;
-  animation: marquee 48s linear infinite;
-  will-change: transform;
-}
-
 /* Scroll-spy nav state (class set by inline script) */
 nav a[aria-current="true"] {
   color: var(--color-text);
@@ -227,28 +196,52 @@ nav a[aria-current="true"]::after {
   background: var(--color-accent);
 }
 
-/* Color-lab swatch buttons */
-.swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 9999px;
-  cursor: pointer;
-  border: 1px solid rgba(236, 231, 219, 0.3);
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+/* Ivory tint for the black badge artwork */
+.ivory {
+  filter: invert(90%) sepia(10%);
 }
-.swatch:hover {
-  transform: scale(1.3);
+
+/* "Things I've made" cards that link out lift a little on hover */
+.made-card {
+  transition:
+    border-color 0.35s ease,
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.swatch[aria-pressed="true"] {
-  box-shadow: 0 0 0 2px var(--color-pine), 0 0 0 3.5px var(--color-text);
+.made-card.is-link:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  transform: translateY(-3px);
+}
+
+.print-only {
+  display: none;
 }
 
 /* ──────────────────────────────────────────────────────────────
    PRINT — flips to a clean paper document.
    ────────────────────────────────────────────────────────────── */
+@page {
+  margin: 0.55in;
+}
+
 @media print {
+  :root {
+    --color-pine: #fff;
+    --color-panel: #fff;
+    --color-line: #d4d4d4;
+    --color-text: #111;
+    --color-dim: #333;
+    --color-muted: #555;
+    --color-accent: #5c4a22;
+    --color-accent-hot: #5c4a22;
+  }
   .no-print {
     display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .ivory {
+    filter: none !important;
   }
   html,
   body {
@@ -262,32 +255,52 @@ nav a[aria-current="true"]::after {
   .linen {
     background-image: none;
   }
-  main {
-    padding-top: 0 !important;
-  }
   section {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-    break-inside: avoid-page;
-    border-color: #ddd !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  section > div {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  /* Chrome won't split grid rows across pages cleanly; stack instead */
+  #about > div,
+  #story > div {
+    display: block !important;
+  }
+  #story ol {
+    margin-top: 0.75rem;
+  }
+  h1 {
+    font-size: 2.6rem !important;
+    margin-top: 1rem !important;
+  }
+  h1 + p {
+    margin-top: 0.75rem !important;
+    font-size: 1.05rem !important;
+  }
+  #about p {
+    font-size: 15px !important;
+  }
+  #contact h2 {
+    font-size: 1.6rem !important;
+  }
+  p.label,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  .story-row {
+    break-inside: avoid;
+  }
+  .club-panel {
+    box-shadow: none !important;
+    background: #fff !important;
   }
   .rise,
   .reveal {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-  [class*="text-dim"],
-  [class*="text-muted"] {
-    color: #444 !important;
-  }
-  [class*="bg-panel"],
-  .club-panel {
-    background: #f6f6f6 !important;
-  }
-  [class*="border-line"],
-  .rule,
-  .rule-double {
-    border-color: #ccc !important;
   }
 }
