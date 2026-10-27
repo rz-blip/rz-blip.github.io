@@ -13,18 +13,22 @@ What's in there:
 
 | Export       | Section on page                              |
 | ------------ | -------------------------------------------- |
-| `identity`   | Name, role line, email, "open to" list        |
-| `summary`    | The lede paragraph                            |
+| `identity`   | Name, role line, email                        |
+| `summary`    | I · Profile lede paragraph                    |
 | `facts`      | The ledger block beside the summary           |
-| `now`        | 01 — On the desk (update `asOf` when editing) |
-| `experience` | 02 — Experience entries + bullets             |
-| `ventures`   | 03 — Built and owned                          |
-| `built`      | 04 — The tools the work runs on               |
-| `analysis`   | 05 — Independent work (QNST memo)             |
-| `skills`     | 06 — Skill groups                             |
-| `education`  | 07 — Education                                |
-| `links`      | Contact links (⚠ confirm handles before live) |
-| `meta`       | Page title, description, version stamp        |
+| `ticker`     | Hero ticker strip                             |
+| `now`        | II · On the desk (update `asOf` when editing) |
+| `experience` | III · Experience entries + bullets            |
+| `ventures`   | IV · Built and owned                          |
+| `built`      | V · The tools the work runs on                |
+| `skills`     | VI · Skill groups                             |
+| `education`  | VII · Education                               |
+| `links`      | VIII · Contact links (X, LinkedIn, GitHub)    |
+| `meta`       | Page title, description, share image, version |
+
+The share card (`public/og.png`, shown when the link is posted on X or
+LinkedIn) is rendered from `scripts/og-card.html`; the render command is in
+that file's header comment. Re-render it when the role line changes.
 
 The "Updated" date in the masthead is stamped automatically at build time.
 

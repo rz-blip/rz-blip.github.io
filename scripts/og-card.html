@@ -1,0 +1,107 @@
+<!doctype html>
+<!--
+  Social share card (og:image / twitter:image), 1200x630.
+  Copy mirrors meta in src/data/resume.ts; edit both together.
+  Render:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+      --hide-scrollbars --window-size=1200,630 --virtual-time-budget=8000 \
+      --screenshot=public/og.png "file://$PWD/scripts/og-card.html"
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=EB+Garamond:ital,wght@0,400;1,400&display=block"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: #0c1a14;
+      }
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #ece7db;
+        background:
+          radial-gradient(ellipse 70% 60% at 50% 0%, rgba(194, 160, 92, 0.12), transparent 70%),
+          #0c1a14;
+      }
+      /* certificate double rule around the edge */
+      .frame {
+        position: absolute;
+        inset: 26px;
+        border: 1px solid rgba(194, 160, 92, 0.55);
+        outline: 1px solid rgba(194, 160, 92, 0.25);
+        outline-offset: 7px;
+      }
+      .watermark {
+        position: absolute;
+        right: -230px;
+        bottom: -150px;
+        width: 860px;
+        opacity: 0.045;
+        transform: rotate(-7deg);
+        filter: invert(90%) sepia(10%);
+      }
+      .badge {
+        height: 92px;
+        filter: invert(90%) sepia(10%);
+      }
+      h1 {
+        font-family: 'Cinzel', serif;
+        font-weight: 600;
+        font-size: 74px;
+        letter-spacing: 0.08em;
+        margin: 38px 0 0;
+      }
+      .rule {
+        width: 120px;
+        height: 5px;
+        border-top: 1px solid #c2a05c;
+        border-bottom: 1px solid #c2a05c;
+        margin: 28px 0 0;
+      }
+      p {
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        font-size: 31px;
+        line-height: 1.4;
+        color: #b5b2a2;
+        max-width: 860px;
+        margin: 26px 0 0;
+      }
+      .label {
+        position: absolute;
+        bottom: 58px;
+        font-family: 'Cinzel', serif;
+        font-weight: 500;
+        font-size: 17px;
+        letter-spacing: 0.3em;
+        color: #dcc08a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <img class="watermark" src="../public/badge.svg" alt="" />
+      <div class="frame"></div>
+      <img class="badge" src="../public/badge.svg" alt="" />
+      <h1>Robert Zukerman</h1>
+      <div class="rule"></div>
+      <p>Founder-operator with a realized exit, now in small-cap capital markets: building Fair and running a firm on AI agents.</p>
+      <div class="label">33RDVENTURES.COM</div>
+    </div>
+  </body>
+</html>

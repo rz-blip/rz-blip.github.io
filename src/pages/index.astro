@@ -8,10 +8,10 @@ import {
   experience,
   ventures,
   built,
-  analysis,
   skills,
   education,
   links,
+  ticker,
   meta,
 } from '../data/resume';
 
@@ -29,18 +29,7 @@ const navItems = [
   { label: 'Experience', href: '#experience' },
   { label: 'Ventures', href: '#ventures' },
   { label: 'Built', href: '#built' },
-  { label: 'Analysis', href: '#analysis' },
   { label: 'Contact', href: '#contact' },
-];
-
-const ticker = [
-  'Deal sourcing',
-  'Portfolio operations',
-  'Investor relations',
-  '$5M+ revenue built',
-  'Exited 2024',
-  'AI-native operator',
-  'New York City',
 ];
 
 // Color lab — curated accent palettes (defined in global.css)
@@ -111,7 +100,7 @@ const ivory = 'filter: invert(90%) sepia(10%)';
           class="relative z-10 mx-auto max-w-6xl w-full px-6 md:px-10 flex-1 flex flex-col pt-24 pb-10"
         >
           <div class="flex items-center justify-between label rise delay-1">
-            <span>Curriculum vitae — living document</span>
+            <span>Curriculum vitae · living document</span>
             <span class="hidden sm:inline lining">Updated {updated} · {meta.version}</span>
           </div>
 
@@ -177,7 +166,7 @@ const ivory = 'filter: invert(90%) sepia(10%)';
       <section id="profile" class="px-6 md:px-10 py-16 md:py-24 scroll-mt-16">
         <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-10 md:gap-16 reveal">
           <div class="md:col-span-7">
-            <p class="label mb-6"><span class="text-accent-hot">I</span> — Profile</p>
+            <p class="label mb-6"><span class="text-accent-hot">I</span> · Profile</p>
             <p class="font-serif text-lg md:text-[1.2rem] leading-[1.8] text-dim">
               {summary}
             </p>
@@ -204,9 +193,6 @@ const ivory = 'filter: invert(90%) sepia(10%)';
                 </dd>
               </div>
             </dl>
-            <p class="label mt-5">
-              Open to — {identity.openTo.join(' · ')}
-            </p>
           </div>
         </div>
       </section>
@@ -215,7 +201,7 @@ const ivory = 'filter: invert(90%) sepia(10%)';
       <section id="now" class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
         <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-8 md:gap-16 reveal">
           <div class="md:col-span-4">
-            <p class="label"><span class="text-accent-hot">II</span> — Now</p>
+            <p class="label"><span class="text-accent-hot">II</span> · Now</p>
             <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
               On the desk
             </h2>
@@ -251,7 +237,7 @@ const ivory = 'filter: invert(90%) sepia(10%)';
         />
         <div class="relative z-10 mx-auto max-w-6xl">
           <div class="reveal">
-            <p class="label"><span class="text-accent-hot">III</span> — Experience</p>
+            <p class="label"><span class="text-accent-hot">III</span> · Experience</p>
             <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
               Nine years · three companies · one exit
             </h2>
@@ -306,7 +292,7 @@ const ivory = 'filter: invert(90%) sepia(10%)';
       >
         <div class="mx-auto max-w-6xl">
           <div class="reveal">
-            <p class="label"><span class="text-accent-hot">IV</span> — Ventures</p>
+            <p class="label"><span class="text-accent-hot">IV</span> · Ventures</p>
             <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
               Built and owned
             </h2>
@@ -349,7 +335,7 @@ const ivory = 'filter: invert(90%) sepia(10%)';
       <section id="built" class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
         <div class="mx-auto max-w-6xl">
           <div class="reveal">
-            <p class="label"><span class="text-accent-hot">V</span> — Built</p>
+            <p class="label"><span class="text-accent-hot">V</span> · Built</p>
             <h2 class="font-display text-xl md:text-2xl mt-4 text-text">
               The tools the work runs on
             </h2>
@@ -373,48 +359,11 @@ const ivory = 'filter: invert(90%) sepia(10%)';
         </div>
       </section>
 
-      <!-- ────────────  VI / ANALYSIS  ──────────── -->
-      <section
-        id="analysis"
-        class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16"
-      >
-        <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-8 md:gap-16 reveal">
-          <div class="md:col-span-4">
-            <p class="label">
-              <span class="text-accent-hot">VI</span> — Independent work
-            </p>
-            <h2 class="font-display text-xl md:text-2xl mt-4 text-text">Analysis</h2>
-          </div>
-
-          <div class="md:col-span-8 club-panel rounded-[4px] border-l-2 border-l-accent p-7 md:p-10">
-            <div class="flex flex-wrap items-baseline justify-between gap-3">
-              <h3 class="font-serif font-semibold text-2xl text-text">
-                {analysis.title}
-                <span class="label !text-accent-hot align-middle ml-2 lining">
-                  {analysis.ticker}
-                </span>
-              </h3>
-              <span class="label lining">{analysis.year}</span>
-            </div>
-            <p class="font-serif italic text-[16px] text-dim mt-2">{analysis.kind}</p>
-            <p class="font-serif text-[16px] leading-relaxed text-dim mt-5 max-w-2xl">
-              {analysis.blurb}
-            </p>
-            <a
-              href={analysis.ctaHref}
-              class="inline-block mt-7 label !text-on-accent !tracking-[0.24em] bg-accent rounded-[3px] px-7 py-3 hover:bg-accent-hot transition-colors"
-            >
-              {analysis.cta} →
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ────────────  VII / SKILLS & VIII / EDUCATION  ──────────── -->
+      <!-- ────────────  VI / SKILLS & VII / EDUCATION  ──────────── -->
       <section id="skills" class="px-6 md:px-10 py-16 md:py-24 border-t rule scroll-mt-16">
         <div class="mx-auto max-w-6xl grid md:grid-cols-12 gap-12 md:gap-16">
           <div class="md:col-span-8 reveal">
-            <p class="label"><span class="text-accent-hot">VII</span> — Skills</p>
+            <p class="label"><span class="text-accent-hot">VI</span> · Skills</p>
             <div class="grid sm:grid-cols-2 gap-x-12 gap-y-10 mt-8">
               {
                 skills.map((s) => (
@@ -434,7 +383,7 @@ const ivory = 'filter: invert(90%) sepia(10%)';
           </div>
 
           <div class="md:col-span-4 reveal">
-            <p class="label"><span class="text-accent-hot">VIII</span> — Education</p>
+            <p class="label"><span class="text-accent-hot">VII</span> · Education</p>
             <ul class="mt-8">
               {
                 education.map((e) => (
@@ -454,17 +403,17 @@ const ivory = 'filter: invert(90%) sepia(10%)';
         </div>
       </section>
 
-      <!-- ────────────  IX / CONTACT  ──────────── -->
+      <!-- ────────────  VIII / CONTACT  ──────────── -->
       <section
         id="contact"
         class="px-6 md:px-10 py-20 md:py-32 border-t rule scroll-mt-16"
       >
         <div class="mx-auto max-w-6xl text-center reveal">
-          <p class="label"><span class="text-accent-hot">IX</span> — Contact</p>
+          <p class="label"><span class="text-accent-hot">VIII</span> · Contact</p>
           <h2
             class="font-display text-[clamp(1.4rem,3.4vw,2.5rem)] leading-[1.35] mt-8 mx-auto max-w-4xl text-text"
           >
-            Working in the private markets?<br />Let's talk.
+            Small caps, IR or building with AI?<br />Let's talk.
           </h2>
           <div class="rule-double w-28 mx-auto mt-8"></div>
 
@@ -499,10 +448,10 @@ const ivory = 'filter: invert(90%) sepia(10%)';
       >
         <span class="flex items-center gap-3">
           <img src="/badge.svg" alt="" class="h-4 w-auto" style={ivory} />
-          <span class="lining">33rd Ventures — © {year}</span>
+          <span class="lining">33rd Ventures · © {year}</span>
         </span>
         <span class="hidden md:inline">
-          This page is the résumé — updated continuously — New York
+          This page is the résumé, updated continuously · New York
         </span>
         <a href="#top" class="no-print hover:text-text transition-colors uline">↑ Top</a>
       </div>
