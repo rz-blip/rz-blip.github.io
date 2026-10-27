@@ -84,11 +84,10 @@ export const story = [
   {
     dates: '2017 – 2020',
     place: 'Haven Apparel',
-    role: 'Finance & operations',
-    text: 'Ran payroll, payables and reporting at a Vancouver apparel brand while it grew from about $8M to $25M+ in revenue and from 20 to 50 people.',
+    role: 'Executive assistant',
+    text: 'Executive assistant at a Vancouver apparel brand, working with the leadership team across finance and operations.',
     bullets: [
-      'Core operations support to the leadership team through rapid growth: revenue scaled from ~$8M to $25M+ and headcount from 20 to 50.',
-      'Ran payroll, accounts payable and financial reporting across the growth period.',
+      'Supported the leadership team across finance and operations.',
       'Led brand events, retail installations and cross-functional special projects.',
     ],
   },
